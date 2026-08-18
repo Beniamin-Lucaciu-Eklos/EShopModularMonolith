@@ -1,17 +1,35 @@
-var builder = WebApplication.CreateBuilder(args);
+namespace Eshop.Api;
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+public class Program
 {
-    app.MapOpenApi();
+    private static void Main(string[] args)
+    {
+        var builder = WebApplication.CreateBuilder(args);
+
+        // Add services to the container.
+        // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+        builder.Services.AddOpenApi();
+
+        builder.Services
+            .AddCatalogModule(builder.Configuration)
+            .AddBasketModule(builder.Configuration)
+            .AddOrderingModule(builder.Configuration);
+
+
+        var app = builder.Build();
+
+        app.UseCatalogModule()
+           .UseBasketModule()
+           .UseOrderingModule();
+
+        // Configure the HTTP request pipeline.
+        if (app.Environment.IsDevelopment())
+        {
+            app.MapOpenApi();
+        }
+
+        //  app.UseHttpsRedirection();
+
+        app.Run();
+    }
 }
-
-app.UseHttpsRedirection();
-
-app.Run();
