@@ -1,2 +1,5 @@
 <Solution>
+  <Folder Name="/Bootstrapper/">
+    <Project Path="Bootstrapper/EShop.Api.csproj" />
+  </Folder>
 </Solution>
