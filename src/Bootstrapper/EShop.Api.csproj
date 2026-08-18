@@ -2,5 +2,10 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Modules\Basket\EShop.Basket.csproj" />
+    <ProjectReference Include="..\Modules\Catalog\EShop.Catalog.csproj" />
+    <ProjectReference Include="..\Modules\Ordering\EShop.Ordering.csproj" />
+  </ItemGroup>
 
 </Project>
