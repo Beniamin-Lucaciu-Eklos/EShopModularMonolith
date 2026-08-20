@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <!-- Target framework & language -->
-    <TargetFramework>net10.0</TargetFramework>
+    <TargetFramework>net9</TargetFramework>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>

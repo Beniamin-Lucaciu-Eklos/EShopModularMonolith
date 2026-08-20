@@ -1,12 +1,22 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
-  </ItemGroup>
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<UserSecretsId>4096bf78-e8e7-4c83-8ca2-663303245058</UserSecretsId>
+		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+		<DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
+	</PropertyGroup>
+	
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Modules\Basket\EShop.Basket.csproj" />
-    <ProjectReference Include="..\Modules\Catalog\EShop.Catalog.csproj" />
-    <ProjectReference Include="..\Modules\Ordering\EShop.Ordering.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Modules\Basket\EShop.Basket.csproj" />
+		<ProjectReference Include="..\Modules\Catalog\EShop.Catalog.csproj" />
+		<ProjectReference Include="..\Modules\Ordering\EShop.Ordering.csproj" />
+	</ItemGroup>
 
 </Project>
