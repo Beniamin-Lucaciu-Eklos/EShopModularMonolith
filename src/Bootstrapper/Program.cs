@@ -1,4 +1,4 @@
-namespace Eshop.Api
+﻿namespace Eshop.Api
 {
     internal static class Program
     {

@@ -15,6 +15,7 @@
   <Folder Name="/Shared/">
     <Project Path="Shared/EShop.Shared.csproj" />
   </Folder>
+  <Folder Name="/Solution Items/" />
   <Project Path="docker-compose.dcproj">
     <Build />
   </Project>
