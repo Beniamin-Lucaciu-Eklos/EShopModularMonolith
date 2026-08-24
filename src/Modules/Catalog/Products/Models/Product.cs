@@ -1,4 +1,4 @@
-
+﻿
 namespace Eshop.Modules.Catalog.Products.Models;
 
 public class Product : Aggregate<Guid>
@@ -36,7 +36,7 @@ public class Product : Aggregate<Guid>
         return product;
     }
 
-    public void Update(Guid id,
+    public void Update(
         string name,
         List<string> categories,
         string description,

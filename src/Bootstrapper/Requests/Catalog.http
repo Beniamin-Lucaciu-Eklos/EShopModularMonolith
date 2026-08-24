@@ -1,0 +1,52 @@
+﻿@host = http://localhost:5000
+
+
+GET {{host}}/products/
+Accept: application/json
+
+### Get all products
+
+GET {{host}}/products/c67d6323-e8b1-4bdf-9a75-b0d0d2e7e914
+Accept: application/json
+
+### Get product by Id
+
+GET {{host}}/products/category/mobile
+Accept: application/json
+
+### Get all products by category
+
+POST  {{host}}/products/
+Content-Type: application/json
+
+{
+    "product": {
+      "name": "Samsung 25",
+      "categories": ["mobile", "editor"],
+      "description": "Long description",
+      "imageFile": "imagefile",
+      "price": 400
+}
+}
+### Add new product
+
+
+PUT  {{host}}/products/
+Content-Type: application/json
+
+{
+    "product": {
+      "Id": "c67d6323-e8b1-4bdf-9a75-b0d0d2e7e914", 
+      "name": "Samsung 20",
+      "categories": ["mobile"],
+      "description": "Long description",
+      "imageFile": "imagefile1",
+      "price": 800
+}
+}
+### update a product c67d6323-e8b1-4bdf-9a75-b0d0d2e7e914
+
+DELETE  {{host}}/products/c67d6323-e8b1-4bdf-9a75-b0d0d2e7e914
+
+### update a product c67d6323-e8b1-4bdf-9a75-b0d0d2e7e914
+

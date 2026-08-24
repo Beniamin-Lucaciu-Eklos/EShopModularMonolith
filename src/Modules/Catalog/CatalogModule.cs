@@ -2,11 +2,9 @@
 using EShop.Shared.Data;
 using EShop.Shared.Data.Interceptors;
 using EShop.Shared.Data.Seed;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System.Threading.Tasks;
 
 namespace Eshop.Modules.Catalog;
 

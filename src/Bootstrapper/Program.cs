@@ -1,4 +1,5 @@
-﻿namespace Eshop.Api
+﻿
+namespace Eshop.Api
 {
     internal static class Program
     {
@@ -11,11 +12,16 @@
             builder.Services.AddOpenApi();
 
             builder.Services
+                .AddCarterWithAssemblies(typeof(CatalogModule).Assembly);
+
+            builder.Services
                 .AddCatalogModule(builder.Configuration)
                 .AddBasketModule(builder.Configuration)
                 .AddOrderingModule(builder.Configuration);
 
             var app = builder.Build();
+
+            app.MapCarter();
 
             app.UseCatalogModule()
                .UseBasketModule()
