@@ -1,4 +1,5 @@
 ﻿using EShop.Catalog.Products.Features.DeleteProduct;
+using EShop.Shared.Pagination;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,15 +8,17 @@ using System.Threading.Tasks;
 
 namespace EShop.Catalog.Products.Features.GetProducts
 {
-    public record GetProductsResponse(IEnumerable<ProductDto> Products);
+    public record GetProductsResponse(PaginationResult<ProductDto> Products);
 
     public class GetProductsEndpoint : ICarterModule
     {
         public void AddRoutes(IEndpointRouteBuilder app)
         {
-            app.MapGet("/products/", async (ISender mediator) =>
+            app.MapGet("/products/", async
+                ([AsParameters] PaginationRequest request,
+                ISender mediator) =>
             {
-                var results = await mediator.Send(new GetProductsQuery());
+                var results = await mediator.Send(new GetProductsQuery(request));
 
                 var response = results.Adapt<GetProductsResponse>();
 

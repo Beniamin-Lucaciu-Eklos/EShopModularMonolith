@@ -1,4 +1,5 @@
 ﻿using EShop.Catalog.Data.Seed;
+using EShop.Shared.Behaviors;
 using EShop.Shared.Data;
 using EShop.Shared.Data.Interceptors;
 using EShop.Shared.Data.Seed;
@@ -17,13 +18,16 @@ public static class CatalogModule
         services.AddMediatR(config =>
         {
             config.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly());
+            config.AddOpenBehavior(typeof(ValidationBehavior<,>));
+            config.AddOpenBehavior(typeof(LoggingBehavior<,>));
         });
-
-        var connectionString = configuration["ConnectionStrings:EShopDbContext"];
+         
+        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
         services.AddScoped<ISaveChangesInterceptor, AuditableEntityInterceptor>();
         services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
 
+        var connectionString = configuration["ConnectionStrings:EShopDbContext"];
         services.AddDbContext<CatalogDbContext>((sp,options) =>
         {
             options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());

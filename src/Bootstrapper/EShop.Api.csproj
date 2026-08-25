@@ -6,12 +6,15 @@
 		<UserSecretsId>4096bf78-e8e7-4c83-8ca2-663303245058</UserSecretsId>
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 		<DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
+		<StartupObject>Eshop.Api.Program</StartupObject>
 	</PropertyGroup>
 	
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.OpenApi" />
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" />
-	</ItemGroup>
+        <PackageReference Include="Serilog.AspNetCore"/>
+        <PackageReference Include="Serilog.Sinks.Seq"/>
+    </ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\Modules\Basket\EShop.Basket.csproj" />

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Build.Framework;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,15 +13,43 @@ namespace EShop.Catalog.Products.Features.CreateProduct
 
     public record CreateProductResult(Guid id);
 
-    public class CreateProductCommandHandler(CatalogDbContext dbContext)
+    public class CreateProductCommandValidator : AbstractValidator<CreateProductCommand>
+    {
+        public CreateProductCommandValidator()
+        {
+            RuleFor(p => p.Product.Name)
+                .NotEmpty().WithMessage("Name is Required");
+            RuleFor(p => p.Product.Categories)
+                .NotEmpty().WithMessage("Categories is Required");
+            RuleFor(p => p.Product.ImageFile)
+                .NotEmpty().WithMessage("ImageFile is Required");
+            RuleFor(p => p.Product.Price)
+                .GreaterThan(0).WithMessage("Price must be greater than 0");
+        }
+    }
+
+    public class CreateProductCommandHandler
         : ICommandHandler<CreateProductCommand, CreateProductResult>
     {
+        private readonly CatalogDbContext _dbContext;
+        private readonly ILogger<CreateProductCommandHandler> _logger;
+
+        public CreateProductCommandHandler(
+            CatalogDbContext dbContext,
+            ILogger<CreateProductCommandHandler> logger)
+        {
+            _dbContext = dbContext;
+            _logger = logger;
+        }
+
         public async Task<CreateProductResult> Handle(CreateProductCommand command, CancellationToken cancellationToken)
         {
+            _logger.LogInformation("start creating");
+
             var product = CreateNewProduct(command.Product);
 
-            await dbContext.Products.AddAsync(product, cancellationToken);
-            await dbContext.SaveChangesAsync(cancellationToken);
+            await _dbContext.Products.AddAsync(product, cancellationToken);
+            await _dbContext.SaveChangesAsync(cancellationToken);
 
             return new CreateProductResult(product.Id);
         }

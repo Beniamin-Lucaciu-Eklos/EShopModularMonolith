@@ -1,4 +1,4 @@
-services:
+﻿services:
   eshopdb:
     image: postgres:16
     container_name: eshopdb
@@ -10,7 +10,20 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data  
+      - postgres_data:/var/lib/postgresql/data
+
+  seq:
+     image: datalust/seq:latest
+     environment:
+       - ACCEPT_EULA=Y
+       - SEQ_FIRSTRUN_ADMINPASSWORD=pa55w0rdAdi
+     restart: unless-stopped
+     ports:
+       - "5341:5341"
+       - "9091:80"
+     volumes:
+       - seq_data:$HOST_PATH_TO_SEQ/data
 
 volumes:
   postgres_data:
+  seq_data:

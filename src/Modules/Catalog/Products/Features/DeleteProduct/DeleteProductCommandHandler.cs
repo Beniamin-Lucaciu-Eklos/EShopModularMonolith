@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EShop.Catalog.Products.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,16 @@ namespace EShop.Catalog.Products.Features.DeleteProduct
 
    public record DeleteProductResult(bool IsSuccess);
 
+    public class DeleteProductValidator : AbstractValidator<DeleteProductCommand>
+    {
+        public DeleteProductValidator()
+        {
+            RuleFor(p => p.Id)
+                 .Must(id => id != Guid.Empty)
+                 .WithMessage("product id must not be empty");
+        }
+    }
+
     public class DeleteProductCommandHandler(CatalogDbContext dbContext)
         : ICommandHandler<DeleteProductCommand, DeleteProductResult>
     {
@@ -18,7 +29,7 @@ namespace EShop.Catalog.Products.Features.DeleteProduct
         {
             var product = await dbContext.Products.FindAsync([command.Id], cancellationToken);
             if (product is null)
-                throw new ArgumentException($"Not found product {command.Id}");
+                throw new ProductNotFoundException(command.Id);
         
             dbContext.Products.Remove(product);
             await dbContext.SaveChangesAsync(cancellationToken);

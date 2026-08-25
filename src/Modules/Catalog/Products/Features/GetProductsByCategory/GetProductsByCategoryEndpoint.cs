@@ -1,4 +1,5 @@
 ﻿using EShop.Catalog.Products.Features.GetProducts;
+using EShop.Shared.Pagination;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,15 +9,18 @@ using System.Threading.Tasks;
 namespace EShop.Catalog.Products.Features.GetProductByCategory
 {
 
-    public record GetProductsByCategoryResponse(IEnumerable<ProductDto> Products);
+    public record GetProductsByCategoryResponse(PaginationResult<ProductDto> Products);
 
     public class GetProductsByCategoryEndpoint : ICarterModule
     {
         public void AddRoutes(IEndpointRouteBuilder app)
         {
-            app.MapGet("/products/category/{category}", async (string category, ISender mediator) =>
+            app.MapGet("/products/category/{category}", async (
+                [AsParameters] PaginationRequest request,
+                string category,
+                ISender mediator) =>
             {
-                var result = await mediator.Send(new GetProductsByCategoryQuery(category));
+                var result = await mediator.Send(new GetProductsByCategoryQuery(request, category));
 
                 var response = result.Adapt<GetProductsByCategoryResponse>();
 
