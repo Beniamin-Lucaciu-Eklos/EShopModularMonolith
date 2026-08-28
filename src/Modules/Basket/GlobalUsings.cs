@@ -1,5 +1,11 @@
 ﻿global using EShop.Shared.DDD;
+global using EShop.Shared.CQRS;
 global using EShop.Basket.Basket.Models;
+global using EShop.Basket.Basket.Dtos;
+global using EShop.Basket.Basket.Exceptions;
 global using EShop.Basket.Data;
 global using Microsoft.EntityFrameworkCore;
 global using System.Reflection;
+global using FluentValidation;
+global using Microsoft.Extensions.Logging;
+global using Mapster;
