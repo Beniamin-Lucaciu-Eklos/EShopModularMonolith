@@ -1,4 +1,5 @@
-﻿using EShop.Shared.Data;
+﻿using EShop.Shared.Behaviors;
+using EShop.Shared.Data;
 using EShop.Shared.Data.Interceptors;
 using EShop.Shared.Data.Seed;
 using Microsoft.AspNetCore.Builder;
@@ -14,11 +15,6 @@ public static class BasketModule
         this IServiceCollection services,
         IConfiguration configuration)
     {
-        //1.Add services to the container
-
-        //2. Application Use case services
-
-        //3. Data - Infrastructure services
         services.AddScoped<ISaveChangesInterceptor, AuditableEntityInterceptor>();
         services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
 

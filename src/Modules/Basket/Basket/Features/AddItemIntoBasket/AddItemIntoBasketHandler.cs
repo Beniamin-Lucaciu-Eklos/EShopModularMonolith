@@ -23,15 +23,13 @@ public class AddItemIntoBasketValidator : AbstractValidator<AddItemIntoBasketCom
     }
 }
 
-
-internal class AddItemIntoBasketHandler(BasketDbContext dbContext) :
+public class AddItemIntoBasketHandler(BasketDbContext dbContext) :
     ICommandHandler<AddItemIntoBasketCommand, AddItemIntoBasketResult>
 {
     public async Task<AddItemIntoBasketResult> Handle(AddItemIntoBasketCommand command,
         CancellationToken cancellationToken)
     {
         var shoppingCart = await dbContext.ShoppingCarts
-            .AsNoTracking()
             .Include(sc => sc.Items)
             .FirstOrDefaultAsync(x => x.UserName == command.UserName, cancellationToken);
 
@@ -40,7 +38,7 @@ internal class AddItemIntoBasketHandler(BasketDbContext dbContext) :
 
         var shoppingItem = command.ShoppingCartItem;
         shoppingCart.AddItem(
-            shoppingItem.Id,
+            shoppingItem.ProductId,
             shoppingItem.Quantity,
             shoppingItem.Color,
             shoppingItem.Price,

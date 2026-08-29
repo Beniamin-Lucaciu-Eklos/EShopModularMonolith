@@ -27,6 +27,7 @@ public class Product : Aggregate<Guid>
         {
             Id = id,
             Name = name,
+            Categories = categories,
             Description = description,
             ImageFile = imageFile,
             Price = price

@@ -53,7 +53,7 @@ namespace EShop.Basket.Basket.Features.CreateBasket
         {
             var shoppingCart = ShoppingCart.Create(shoppingCartDto.Id, shoppingCartDto.UserName);
 
-            foreach (var item in shoppingCart.Items)
+            foreach (var item in shoppingCartDto.Items)
             {
                 shoppingCart.AddItem(
                     item.ProductId,

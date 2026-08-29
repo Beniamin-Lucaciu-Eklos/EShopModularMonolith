@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Diagnostics;
+﻿using EShop.Shared.Behaviors;
+using FluentValidation;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using System.Reflection;
 
 
 namespace Eshop.Api
@@ -19,8 +22,14 @@ namespace Eshop.Api
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
 
+            var catalogAssembly = typeof(CatalogModule).Assembly;
+            var basketAssembly = typeof(BasketModule).Assembly;
+            Assembly[] moduleAssemblies = [catalogAssembly, basketAssembly];
+
             builder.Services
-                .AddCarterWithAssemblies(typeof(CatalogModule).Assembly);
+                .AddCarterWithAssemblies(moduleAssemblies);
+            builder.Services
+                .AddMediatorRWithAssemblies(moduleAssemblies);
 
             builder.Services
                 .AddCatalogModule(builder.Configuration)

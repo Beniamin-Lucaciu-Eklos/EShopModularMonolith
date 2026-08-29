@@ -21,12 +21,15 @@ namespace EShop.Basket.Basket.Features.DeleteBasket
         }
     }
 
-    public class DeleteBasketCommandHandler(BasketDbContext dbContext)
+    public class DeleteBasketHandler(BasketDbContext dbContext)
        : ICommandHandler<DeleteBasketCommand, DeleteBasketResult>
     {
         public async Task<DeleteBasketResult> Handle(DeleteBasketCommand command, CancellationToken cancellationToken)
         {
-            var shoppingCart = await dbContext.ShoppingCarts.FindAsync([command.UserName], cancellationToken);
+            var shoppingCart = await dbContext.ShoppingCarts
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.UserName == command.UserName);
+
             if (shoppingCart is null)
                 throw new ShoppingCartNotFoundException(command.UserName);
 

@@ -15,15 +15,6 @@ public static class CatalogModule
         this IServiceCollection services,
         IConfiguration configuration)
     {
-        services.AddMediatR(config =>
-        {
-            config.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly());
-            config.AddOpenBehavior(typeof(ValidationBehavior<,>));
-            config.AddOpenBehavior(typeof(LoggingBehavior<,>));
-        });
-         
-        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
-
         services.AddScoped<ISaveChangesInterceptor, AuditableEntityInterceptor>();
         services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
 

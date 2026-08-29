@@ -1,7 +1,4 @@
-﻿
-
-
-namespace EShop.Basket.Basket.Features.RemoveItemFromBasket;
+﻿namespace EShop.Basket.Basket.Features.RemoveItemFromBasket;
 
 public record RemoveItemFromBasketCommand(string UserName, Guid ProductId)
     :ICommand<RemoveItemFromBasketResult>;
@@ -28,9 +25,7 @@ public class RemoveItemFromBasketHandler(BasketDbContext dbContext) :
     public async Task<RemoveItemFromBasketResult> Handle(RemoveItemFromBasketCommand command,
         CancellationToken cancellationToken)
     {
-
         var shoppingCart = await dbContext.ShoppingCarts
-            .AsNoTracking()
             .Include(x => x.Items)
             .FirstOrDefaultAsync(x => x.UserName == command.UserName, cancellationToken);
 
