@@ -1,7 +1,7 @@
 ﻿namespace EShop.Basket.Basket.Features.RemoveItemFromBasket;
 
 public record RemoveItemFromBasketCommand(string UserName, Guid ProductId)
-    :ICommand<RemoveItemFromBasketResult>;
+    : ICommand<RemoveItemFromBasketResult>;
 
 public record RemoveItemFromBasketResult(Guid id);
 
@@ -19,22 +19,17 @@ public class RemoveItemFromBasketValidator : AbstractValidator<RemoveItemFromBas
     }
 }
 
-public class RemoveItemFromBasketHandler(BasketDbContext dbContext) :
+public class RemoveItemFromBasketHandler(IBasketRepository basketRepository) :
     ICommandHandler<RemoveItemFromBasketCommand, RemoveItemFromBasketResult>
 {
     public async Task<RemoveItemFromBasketResult> Handle(RemoveItemFromBasketCommand command,
         CancellationToken cancellationToken)
     {
-        var shoppingCart = await dbContext.ShoppingCarts
-            .Include(x => x.Items)
-            .FirstOrDefaultAsync(x => x.UserName == command.UserName, cancellationToken);
-
-        if (shoppingCart is null)
-            throw new ShoppingCartNotFoundException(command.UserName);
+        var shoppingCart = await basketRepository.GetBasket(command.UserName, false, cancellationToken);
 
         shoppingCart.RemoveItem(command.ProductId);
 
-        await dbContext.SaveChangesAsync(cancellationToken);
+        await basketRepository.SaveChangesAsync(command.UserName, cancellationToken);
 
         return new RemoveItemFromBasketResult(shoppingCart.Id);
     }

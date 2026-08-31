@@ -4,6 +4,7 @@ global using EShop.Basket.Basket.Models;
 global using EShop.Basket.Basket.Dtos;
 global using EShop.Basket.Basket.Exceptions;
 global using EShop.Basket.Data;
+global using EShop.Basket.Data.Repository;
 global using Microsoft.EntityFrameworkCore;
 global using System.Reflection;
 global using FluentValidation;
@@ -15,3 +16,7 @@ global using Microsoft.AspNetCore.Builder;
 global using Microsoft.AspNetCore.Http;
 global using Microsoft.AspNetCore.Routing;
 global using Microsoft.AspNetCore.Mvc;
+global using EShop.Basket.Data.JsonConverters;
+global using Microsoft.Extensions.Caching.Distributed;
+global using System.Text.Json;
+

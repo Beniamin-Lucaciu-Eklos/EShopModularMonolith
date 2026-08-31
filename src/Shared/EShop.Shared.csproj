@@ -17,5 +17,7 @@
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
         <PackageReference Include="Mapster" />
         <PackageReference Include="Carter" />
+        <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis"/>
+        <PackageReference Include="Scrutor" />
     </ItemGroup>
 </Project>

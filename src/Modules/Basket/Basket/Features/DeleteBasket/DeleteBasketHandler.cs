@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace EShop.Basket.Basket.Features.DeleteBasket
+﻿namespace EShop.Basket.Basket.Features.DeleteBasket
 {
     public record DeleteBasketCommand(string UserName)
           : ICommand<DeleteBasketResult>;
@@ -21,22 +15,14 @@ namespace EShop.Basket.Basket.Features.DeleteBasket
         }
     }
 
-    public class DeleteBasketHandler(BasketDbContext dbContext)
+    public class DeleteBasketHandler(IBasketRepository basketRepository)
        : ICommandHandler<DeleteBasketCommand, DeleteBasketResult>
     {
         public async Task<DeleteBasketResult> Handle(DeleteBasketCommand command, CancellationToken cancellationToken)
         {
-            var shoppingCart = await dbContext.ShoppingCarts
-                .AsNoTracking()
-                .FirstOrDefaultAsync(x => x.UserName == command.UserName);
+            var result = await basketRepository.DeleteBasket(command.UserName, cancellationToken: cancellationToken);
 
-            if (shoppingCart is null)
-                throw new ShoppingCartNotFoundException(command.UserName);
-
-            dbContext.ShoppingCarts.Remove(shoppingCart);
-            await dbContext.SaveChangesAsync(cancellationToken);
-
-            return new DeleteBasketResult(true);
+            return new DeleteBasketResult(result);
         }
     }
 }

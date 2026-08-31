@@ -56,5 +56,11 @@ namespace EShop.Basket.Basket.Models
                 _items.Remove(item);
             }
         }
+
+        public void AddItemsFromJson(IEnumerable<ShoppingCartItem> items)
+        {
+            _items.Clear();
+            _items.AddRange(items);
+        }
     }
 }

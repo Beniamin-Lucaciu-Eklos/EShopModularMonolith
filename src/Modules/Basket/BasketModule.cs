@@ -1,9 +1,11 @@
-﻿using EShop.Shared.Behaviors;
+﻿using EShop.Basket.Data.Repository;
+using EShop.Shared.Behaviors;
 using EShop.Shared.Data;
 using EShop.Shared.Data.Interceptors;
 using EShop.Shared.Data.Seed;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -15,6 +17,9 @@ public static class BasketModule
         this IServiceCollection services,
         IConfiguration configuration)
     {
+        services.AddScoped<IBasketRepository, BasketRepository>();
+        services.Decorate<IBasketRepository, CachedBasketRepository>();
+
         services.AddScoped<ISaveChangesInterceptor, AuditableEntityInterceptor>();
         services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
 

@@ -31,6 +31,11 @@ namespace Eshop.Api
             builder.Services
                 .AddMediatorRWithAssemblies(moduleAssemblies);
 
+            builder.Services.AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration = builder.Configuration["ConnectionStrings:Redis"];
+            });
+
             builder.Services
                 .AddCatalogModule(builder.Configuration)
                 .AddBasketModule(builder.Configuration)
