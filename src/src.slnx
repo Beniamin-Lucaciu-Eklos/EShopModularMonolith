@@ -7,13 +7,15 @@
     <Project Path="Modules/Basket/EShop.Basket.csproj" />
   </Folder>
   <Folder Name="/Modules/Catalog/">
-    <Project Path="Modules/Catalog/EShop.Catalog.csproj" />
+    <Project Path="Modules/Catalog/EShop.Catalog.Contracts/EShop.Catalog.Contracts.csproj" Id="c7f1df4c-92e4-45cd-b836-f4435cb476e1" />
+    <Project Path="Modules/Catalog/EShop.Catalog/EShop.Catalog.csproj" />
   </Folder>
   <Folder Name="/Modules/Ordering/">
     <Project Path="Modules/Ordering/EShop.Ordering.csproj" />
   </Folder>
   <Folder Name="/Shared/">
-    <Project Path="Shared/EShop.Shared.csproj" />
+    <Project Path="Shared/EShop.Shared/EShop.Shared.csproj" />
+    <Project Path="Shared/Shared.Contracts/Shared.Contracts/Shared.Contracts.csproj" Id="b9985f9d-e4f0-4de7-aff4-82746c37c202" />
   </Folder>
   <Folder Name="/Solution Items/" />
   <Project Path="docker-compose.dcproj">

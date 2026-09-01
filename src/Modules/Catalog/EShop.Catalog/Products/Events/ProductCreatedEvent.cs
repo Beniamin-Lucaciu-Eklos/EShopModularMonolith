@@ -1,4 +1,4 @@
-namespace Eshop.Modules.Catalog.Products.Events;
+﻿namespace EShop.Modules.Catalog.Products.Events;
 
 public record ProductCreatedEvent(Product Product)
 : IDomainEvent;

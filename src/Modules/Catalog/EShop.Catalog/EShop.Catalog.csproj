@@ -6,7 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Shared\EShop.Shared.csproj" />
+    <ProjectReference Include="..\..\..\Shared\EShop.Shared\EShop.Shared.csproj" />
+    <ProjectReference Include="..\EShop.Catalog.Contracts\EShop.Catalog.Contracts.csproj" />
   </ItemGroup>
 
   <ItemGroup>

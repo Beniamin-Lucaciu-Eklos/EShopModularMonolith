@@ -1,48 +1,40 @@
-﻿using Microsoft.CodeAnalysis;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
-namespace EShop.Basket.Data.JsonConverters
+namespace EShop.Basket.Data.JsonConverters;
+
+public class ShoppingCartJsonConverter : JsonConverter<ShoppingCart>
 {
-    public class ShoppingCartJsonConverter : JsonConverter<ShoppingCart>
+    public override ShoppingCart? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
-        public override ShoppingCart? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        var jsonDocument = JsonDocument.ParseValue(ref reader);
+        var rootElement = jsonDocument.RootElement;
+
+        var id = rootElement.GetProperty("Id").GetGuid();
+        var userName = rootElement.GetProperty("UserName").GetString();
+        var itemsElement = rootElement.GetProperty("Items");
+
+        var shoppingCart = ShoppingCart.Create(id, userName);
+
+        var items = itemsElement.Deserialize<List<ShoppingCartItem>>(options);
+        if (items is not null)
         {
-            var jsonDocument = JsonDocument.ParseValue(ref reader);
-            var rootElement = jsonDocument.RootElement;
-
-            var id = rootElement.GetProperty("Id").GetGuid();
-            var userName = rootElement.GetProperty("UserName").GetString();
-            var itemsElement = rootElement.GetProperty("Items");
-
-            var shoppingCart = ShoppingCart.Create(id, userName);
-
-            var items = itemsElement.Deserialize<List<ShoppingCartItem>>(options);
-            if (items is not null)
-            {
-                shoppingCart.AddItemsFromJson(items);
-            }
-
-            return shoppingCart;
+            //TODO: refactor
+            shoppingCart.AddItemsFromJson(items);
         }
 
-        public override void Write(Utf8JsonWriter writer, ShoppingCart value, JsonSerializerOptions options)
-        {
-            writer.WriteStartObject();
+        return shoppingCart;
+    }
 
-            writer.WriteString("Id", value.Id.ToString());
-            writer.WriteString("UserName", value.UserName);
+    public override void Write(Utf8JsonWriter writer, ShoppingCart value, JsonSerializerOptions options)
+    {
+        writer.WriteStartObject();
 
-            writer.WritePropertyName("Items");
-            JsonSerializer.Serialize(writer, value.Items, options);
-           
-            writer.WriteEndObject();
-        }
+        writer.WriteString("Id", value.Id.ToString());
+        writer.WriteString("UserName", value.UserName);
+
+        writer.WritePropertyName("Items");
+        JsonSerializer.Serialize(writer, value.Items, options);
+       
+        writer.WriteEndObject();
     }
 }

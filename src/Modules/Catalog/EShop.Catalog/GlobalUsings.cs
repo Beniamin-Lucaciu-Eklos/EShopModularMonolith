@@ -1,11 +1,12 @@
 ﻿global using System.Reflection;
 global using EShop.Shared.DDD;
-global using Eshop.Modules.Catalog.Products.Models;
-global using Eshop.Modules.Catalog.Products.Events;
+global using EShop.Modules.Catalog.Products.Models;
+global using EShop.Modules.Catalog.Products.Events;
 global using Microsoft.EntityFrameworkCore;
 global using EShop.Catalog.Data;
-global using EShop.Catalog.Products.Dtos;
-global using EShop.Shared.CQRS;
+global using EShop.Catalog.Contracts.Products.Dtos;
+global using EShop.Catalog.Contracts.Products.Features.GetProductById;
+global using Shared.Contracts.CQRS;
 global using Mapster;
 global using Carter;
 global using MediatR;

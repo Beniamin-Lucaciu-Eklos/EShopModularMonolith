@@ -1,5 +1,5 @@
 ﻿
-namespace Eshop.Modules.Catalog.Products.Models;
+namespace EShop.Modules.Catalog.Products.Models;
 
 public class Product : Aggregate<Guid>
 {

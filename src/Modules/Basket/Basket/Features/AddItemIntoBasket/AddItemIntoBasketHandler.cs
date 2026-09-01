@@ -1,4 +1,7 @@
-﻿namespace EShop.Basket.Basket.Features.AddItemIntoBasket;
+﻿using EShop.Catalog.Contracts.Products.Features.GetProductById;
+using MediatR;
+
+namespace EShop.Basket.Basket.Features.AddItemIntoBasket;
 
 public record AddItemIntoBasketCommand(string UserName, ShoppingCartItemDto ShoppingCartItem)
     : ICommand<AddItemIntoBasketResult>;
@@ -23,7 +26,7 @@ public class AddItemIntoBasketValidator : AbstractValidator<AddItemIntoBasketCom
     }
 }
 
-public class AddItemIntoBasketHandler(IBasketRepository basketRepository) :
+public class AddItemIntoBasketHandler(IBasketRepository basketRepository, IMediator mediator) :
     ICommandHandler<AddItemIntoBasketCommand, AddItemIntoBasketResult>
 {
     public async Task<AddItemIntoBasketResult> Handle(AddItemIntoBasketCommand command,
@@ -31,13 +34,16 @@ public class AddItemIntoBasketHandler(IBasketRepository basketRepository) :
     {
         var shoppingCart = await basketRepository.GetBasket(command.UserName, false, cancellationToken);
 
+        var result = await mediator.Send(
+            new GetProductByIdQuery(command.ShoppingCartItem.ProductId));
+
         var shoppingItem = command.ShoppingCartItem;
         shoppingCart.AddItem(
             shoppingItem.ProductId,
             shoppingItem.Quantity,
             shoppingItem.Color,
-            shoppingItem.Price,
-            shoppingItem.ProductName);
+            result.Product.Price,
+            result.Product.Name);
 
         await basketRepository.SaveChangesAsync(command.UserName, cancellationToken);
 

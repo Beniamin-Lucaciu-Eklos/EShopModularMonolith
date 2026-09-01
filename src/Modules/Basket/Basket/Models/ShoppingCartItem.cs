@@ -33,7 +33,7 @@ namespace EShop.Basket.Basket.Models
         }
 
         [JsonConstructor]
-        public ShoppingCartItem(Guid id,
+        internal ShoppingCartItem(Guid id,
             Guid shoppingCartId,
             Guid productId,
             int quantity,

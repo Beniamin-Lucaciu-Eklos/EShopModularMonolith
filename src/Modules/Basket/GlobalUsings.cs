@@ -1,5 +1,5 @@
 ﻿global using EShop.Shared.DDD;
-global using EShop.Shared.CQRS;
+global using Shared.Contracts.CQRS;
 global using EShop.Basket.Basket.Models;
 global using EShop.Basket.Basket.Dtos;
 global using EShop.Basket.Basket.Exceptions;

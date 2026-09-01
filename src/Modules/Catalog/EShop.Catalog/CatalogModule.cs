@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Eshop.Modules.Catalog;
+namespace EShop.Modules.Catalog;
 
 public static class CatalogModule
 {

@@ -57,6 +57,7 @@ namespace EShop.Basket.Basket.Models
             }
         }
 
+        //TODO: refactor
         public void AddItemsFromJson(IEnumerable<ShoppingCartItem> items)
         {
             _items.Clear();

@@ -10,7 +10,10 @@ public class CachedBasketRepository(
     {
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
         DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull,
-        Converters = { new ShoppingCartJsonConverter(), new ShoppingCartItemJsonConverter() }
+        Converters = {
+            new ShoppingCartJsonConverter(),
+            new ShoppingCartItemJsonConverter()
+        }
     };
 
     public async Task<ShoppingCart> GetBasket(string userName, bool asNoTracking = true, CancellationToken cancellationToken = default)
@@ -28,7 +31,7 @@ public class CachedBasketRepository(
 
         var basket = await basketRepository.GetBasket(userName, asNoTracking, cancellationToken);
 
-        await cache.SetStringAsync(userName, JsonSerializer.Serialize(basket, _options), cancellationToken);
+        await cache.SetStringAsync(userName, SerializeAsJson(basket), cancellationToken);
 
         return basket;
     }
@@ -37,9 +40,14 @@ public class CachedBasketRepository(
     {
         await basketRepository.CreateBasket(basket, cancellationToken);
 
-        await cache.SetStringAsync(basket.UserName, JsonSerializer.Serialize(basket, _options), cancellationToken);
+        await cache.SetStringAsync(basket.UserName, SerializeAsJson(basket), cancellationToken);
 
         return basket;
+    }
+
+    private string SerializeAsJson(ShoppingCart basket)
+    {
+        return JsonSerializer.Serialize(basket, _options);
     }
 
     public async Task<bool> DeleteBasket(string userName, bool asNoTracking = true, CancellationToken cancellationToken = default)

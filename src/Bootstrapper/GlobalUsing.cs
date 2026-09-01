@@ -1,4 +1,4 @@
-﻿global using Eshop.Modules.Catalog;
+﻿global using EShop.Modules.Catalog;
 global using Eshop.Modules.Basket;
 global using Eshop.Modules.Ordering;
 global using Carter;
