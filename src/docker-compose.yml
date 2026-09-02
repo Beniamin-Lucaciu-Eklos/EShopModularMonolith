@@ -36,6 +36,18 @@
      volumes:
        - seq_data:$HOST_PATH_TO_SEQ/data
 
+  RabbitMq:
+     image: rabbitmq:3-management
+     hostname: ecommerce-mq
+     container_name: Rabbitmq
+     environment:
+       - RABBITMQ_DEFAULT_USER=guest
+       - RABBITMQ_DEFAULT_PASS=guest
+     ports:
+       - "5672:5672"
+       - "15672:15672"
+     restart: unless-stopped
+
 volumes:
   postgres_data:
   redis_data:

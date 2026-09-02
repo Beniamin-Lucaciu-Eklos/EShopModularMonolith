@@ -51,9 +51,9 @@ namespace EShop.Catalog.Products.Features.UpdateProduct
         {
             product.Update(productDto.Name,
                 productDto.Categories,
-                product.Description,
-                product.ImageFile,
-                product.Price);            
+                productDto.Description,
+                productDto.ImageFile,
+                productDto.Price);            
         }
     }
 }

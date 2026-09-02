@@ -49,5 +49,11 @@ namespace EShop.Basket.Basket.Models
             Price = price;
             ProductName = productName;
         }
+
+        public void UpdatePrice(decimal price)
+        {
+            ArgumentOutOfRangeException.ThrowIfNegativeOrZero(price);
+            Price = price;
+        }
     }
 }

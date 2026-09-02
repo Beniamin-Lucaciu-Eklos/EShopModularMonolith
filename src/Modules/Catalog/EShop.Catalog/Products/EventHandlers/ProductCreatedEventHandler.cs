@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EShop.Catalog.EventHandlers
+namespace EShop.Catalog.Products.EventHandlers
 {
     public class ProductCreatedEventHandler
         : INotificationHandler<ProductCreatedEvent>

@@ -1,11 +1,4 @@
-﻿using EShop.Shared.Behaviors;
-using FluentValidation;
-using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
-using System.Reflection;
-
-
-namespace Eshop.Api
+﻿namespace Eshop.Api
 {
     internal static class Program
     {
@@ -35,6 +28,10 @@ namespace Eshop.Api
             {
                 options.Configuration = builder.Configuration["ConnectionStrings:Redis"];
             });
+
+            builder.Services
+                .AddMassTransitWithAssemblies(builder.Configuration,
+                moduleAssemblies);
 
             builder.Services
                 .AddCatalogModule(builder.Configuration)
