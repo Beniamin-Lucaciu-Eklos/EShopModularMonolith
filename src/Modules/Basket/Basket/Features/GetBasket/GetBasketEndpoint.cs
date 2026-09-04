@@ -25,7 +25,8 @@ namespace EShop.Basket.Basket.Features.GetBasket
                 .ProducesProblem(StatusCodes.Status400BadRequest)
                 .WithName("GetBasketByUsername")
                 .WithDescription("Get Basket By Username")
-                .WithSummary("Get Basket by username");
+                .WithSummary("Get Basket by username")
+                .RequireAuthorization();
         }
     }
 }

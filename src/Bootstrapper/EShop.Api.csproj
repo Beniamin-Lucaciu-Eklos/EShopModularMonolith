@@ -10,10 +10,11 @@
 	</PropertyGroup>
 	
 	<ItemGroup>
+		<PackageReference Include="Keycloak.AuthServices.Authentication" />
 		<PackageReference Include="Microsoft.AspNetCore.OpenApi" />
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" />
-        <PackageReference Include="Serilog.AspNetCore"/>
-        <PackageReference Include="Serilog.Sinks.Seq"/>
+        <PackageReference Include="Serilog.AspNetCore" />
+        <PackageReference Include="Serilog.Sinks.Seq" />
     </ItemGroup>
 
 	<ItemGroup>

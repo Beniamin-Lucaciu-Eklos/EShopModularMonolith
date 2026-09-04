@@ -24,7 +24,8 @@ namespace EShop.Basket.Basket.Features.DeleteBasket
                 .ProducesProblem(StatusCodes.Status400BadRequest)
                 .WithName("Delete basket")
                 .WithDescription("Delete basket")
-                .WithSummary("Delete basket");
+                .WithSummary("Delete basket")
+                .RequireAuthorization();
         }
     }
 }

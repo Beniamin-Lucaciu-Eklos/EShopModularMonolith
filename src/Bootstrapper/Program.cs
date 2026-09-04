@@ -1,4 +1,6 @@
-﻿namespace Eshop.Api
+﻿using Keycloak.AuthServices.Authentication;
+
+namespace Eshop.Api
 {
     internal static class Program
     {
@@ -33,6 +35,9 @@
                 .AddMassTransitWithAssemblies(builder.Configuration,
                 moduleAssemblies);
 
+            builder.Services.AddKeycloakWebApiAuthentication(builder.Configuration);
+            builder.Services.AddAuthorization();
+
             builder.Services
                 .AddCatalogModule(builder.Configuration)
                 .AddBasketModule(builder.Configuration)
@@ -41,7 +46,7 @@
             builder.Services
                 .AddExceptionHandler<CustomExceptionHandler>();
 
-            var app = builder.Build();
+            var app = builder.Build();         
 
             app.MapCarter();
             app.UseSerilogRequestLogging();
@@ -55,6 +60,8 @@
             app.UseExceptionHandler(options =>
             {
             });
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseCatalogModule()
                .UseBasketModule()

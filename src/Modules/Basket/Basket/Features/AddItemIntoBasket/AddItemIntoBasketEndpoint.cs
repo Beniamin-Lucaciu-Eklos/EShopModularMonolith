@@ -20,6 +20,7 @@ public class AddItemIntoBasketEndpoint : ICarterModule
             var response = result.Adapt<AddItemIntoBasketResponse>();
 
             return Results.Created($"/basket/{response.Id}", response);
-        });
+        })
+            .RequireAuthorization();
     }
 }
