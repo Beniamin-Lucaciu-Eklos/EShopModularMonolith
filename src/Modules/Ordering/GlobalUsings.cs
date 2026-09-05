@@ -1,0 +1,20 @@
+﻿global using EShop.Shared.DDD;
+global using EShop.Ordering.Orders.ValueObjects;
+global using EShop.Ordering.Orders.Models;
+global using EShop.Ordering.Orders.Events;
+global using EShop.Ordering.Orders.Dtos;
+global using EShop.Ordering.Data;
+global using EShop.Ordering.Orders.Exceptions;
+global using Shared.Contracts.CQRS;
+global using MediatR;
+global using Microsoft.Extensions.Logging;
+global using Microsoft.EntityFrameworkCore;
+global using System.Reflection;
+global using Microsoft.EntityFrameworkCore.Metadata.Builders;
+global using Carter;
+global using Microsoft.AspNetCore.Http;
+global using Microsoft.AspNetCore.Routing;
+global using Microsoft.AspNetCore.Builder;
+global using Mapster;
+global using FluentValidation;
+

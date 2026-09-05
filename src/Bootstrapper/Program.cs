@@ -19,7 +19,11 @@ namespace Eshop.Api
 
             var catalogAssembly = typeof(CatalogModule).Assembly;
             var basketAssembly = typeof(BasketModule).Assembly;
-            Assembly[] moduleAssemblies = [catalogAssembly, basketAssembly];
+            var orderingAssembly = typeof(OrderingModule).Assembly;
+
+            Assembly[] moduleAssemblies = [catalogAssembly,
+                basketAssembly,
+                orderingAssembly];
 
             builder.Services
                 .AddCarterWithAssemblies(moduleAssemblies);
@@ -46,7 +50,7 @@ namespace Eshop.Api
             builder.Services
                 .AddExceptionHandler<CustomExceptionHandler>();
 
-            var app = builder.Build();         
+            var app = builder.Build();
 
             app.MapCarter();
             app.UseSerilogRequestLogging();
