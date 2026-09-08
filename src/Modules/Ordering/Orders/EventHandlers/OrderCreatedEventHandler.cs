@@ -1,7 +1,11 @@
 ﻿
+using MassTransit;
+
 namespace EShop.Ordering.Orders.EventHandlers;
 
-public class OrderCreatedEventHandler(ILogger<OrderCreatedEventHandler> logger)
+public class OrderCreatedEventHandler(
+    ILogger<OrderCreatedEventHandler> logger,
+    IBus bus)
     : INotificationHandler<OrderCreatedEvent>
 {
     public Task Handle(OrderCreatedEvent notification, CancellationToken cancellationToken)

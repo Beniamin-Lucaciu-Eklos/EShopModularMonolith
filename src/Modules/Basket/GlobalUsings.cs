@@ -19,4 +19,15 @@ global using Microsoft.AspNetCore.Mvc;
 global using EShop.Basket.Data.JsonConverters;
 global using Microsoft.Extensions.Caching.Distributed;
 global using System.Text.Json;
+global using MassTransit;
+global using Shared.Messaging.Events;
+global using EShop.Basket.Data.Processors;
+global using EShop.Shared.Behaviors;
+global using EShop.Shared.Data;
+global using EShop.Shared.Data.Interceptors;
+global using EShop.Shared.Data.Seed;
+global using Microsoft.EntityFrameworkCore.Diagnostics;
+global using Microsoft.Extensions.Configuration;
+global using Microsoft.Extensions.DependencyInjection;
+
 

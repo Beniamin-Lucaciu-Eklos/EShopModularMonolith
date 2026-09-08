@@ -1,15 +1,4 @@
-﻿using EShop.Basket.Data.Repository;
-using EShop.Shared.Behaviors;
-using EShop.Shared.Data;
-using EShop.Shared.Data.Interceptors;
-using EShop.Shared.Data.Seed;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.EntityFrameworkCore.Diagnostics;
-using Microsoft.Extensions.Caching.Distributed;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-
-namespace Eshop.Modules.Basket;
+﻿namespace Eshop.Modules.Basket;
 
 public static class BasketModule
 {
@@ -29,6 +18,8 @@ public static class BasketModule
             options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
             options.UseNpgsql(connectionString);
         });
+
+        services.AddHostedService<OutboxProcessor>();
 
         return services;
     }
